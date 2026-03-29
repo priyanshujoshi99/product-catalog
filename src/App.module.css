@@ -1,0 +1,125 @@
+.page {
+  height: 100vh;
+  padding: 2rem 1.5rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  background: var(--card-bg);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.layout {
+  display: flex;
+  align-items: stretch;
+  gap: 1.5rem;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.mainCol {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow: hidden;
+}
+
+.searchCard {
+  background: var(--card-bg);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+  padding: 1rem 1.25rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-input);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  background: #fff;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.searchInput:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99,102,241,.15);
+}
+
+.searchBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.4rem;
+  background: var(--primary);
+  color: #fff;
+  border-radius: var(--radius-input);
+  font-weight: 600;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  transition: background var(--transition);
+}
+
+.searchBtn:hover { background: var(--primary-dark); }
+
+.searchBtnDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.7);
+  flex-shrink: 0;
+}
+
+.productsCard {
+  background: var(--card-bg);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+  padding: 0 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.errorState {
+  background: var(--card-bg);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+  padding: 3rem 2rem;
+  text-align: center;
+  color: var(--red);
+}
+
+@media (max-width: 860px) {
+  .page { height: auto; overflow: visible; }
+  .container { overflow: visible; }
+  .layout { flex-direction: column; overflow: visible; }
+  .mainCol { overflow: visible; }
+  .productsCard { overflow: visible; max-height: 80vh; overflow-y: auto; }
+}
+
+@media (max-width: 560px) {
+  .page { padding: 1rem; }
+}

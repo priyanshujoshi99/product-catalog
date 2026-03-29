@@ -1,0 +1,31 @@
+.sortBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background: var(--card-bg);
+  z-index: 1;
+  padding-top: 1rem;
+}
+
+.sortBarCount {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.sortBarCount strong { font-weight: 600; }
+
+.sortBarSelect {
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-input);
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  background: var(--card-bg);
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.sortBarSelect:focus { border-color: var(--primary); }

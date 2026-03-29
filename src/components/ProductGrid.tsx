@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import type { Product } from '../types/product';
 import ProductCard from './ProductCard';
 import ProductSkeleton from './ProductSkeleton';
+import styles from './ProductGrid.module.css';
 
 interface Props {
   products: Product[];
@@ -33,7 +34,7 @@ export default function ProductGrid({ products, loading, hasMore, onLoadMore, on
 
   if (loading) {
     return (
-      <div className="product-grid">
+      <div className={styles.productGrid}>
         {Array.from({ length: SKELETON_COUNT }, (_, i) => (
           <ProductSkeleton key={i} />
         ))}
@@ -43,25 +44,25 @@ export default function ProductGrid({ products, loading, hasMore, onLoadMore, on
 
   if (products.length === 0) {
     return (
-      <div className="empty-state">
-        <div className="empty-state__icon" aria-hidden="true">🔍</div>
-        <h3 className="empty-state__title">No products found</h3>
-        <p className="empty-state__msg">Try adjusting your filters to see more results.</p>
-        <button className="btn-clear" onClick={onClearFilters}>Clear Filters</button>
+      <div className={styles.emptyState}>
+        <div className={styles.emptyStateIcon} aria-hidden="true">🔍</div>
+        <h3 className={styles.emptyStateTitle}>No products found</h3>
+        <p className={styles.emptyStateMsg}>Try adjusting your filters to see more results.</p>
+        <button className={styles.btnClear} onClick={onClearFilters}>Clear Filters</button>
       </div>
     );
   }
 
   return (
     <>
-      <div className="product-grid">
+      <div className={styles.productGrid}>
         {products.map((p) => (
           <ProductCard key={p.id} product={p} />
         ))}
       </div>
-      {hasMore && <div ref={sentinelRef} className="scroll-sentinel" aria-hidden="true" />}
+      {hasMore && <div ref={sentinelRef} className={styles.scrollSentinel} aria-hidden="true" />}
       {!hasMore && products.length > 0 && (
-        <p className="scroll-end-msg">All {products.length} products shown</p>
+        <p className={styles.scrollEndMsg}>All {products.length} products shown</p>
       )}
     </>
   );

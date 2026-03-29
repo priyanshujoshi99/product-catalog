@@ -7,6 +7,7 @@ import { getUniqueCategories } from './utils/filterUtils';
 import FilterPanel from './components/FilterPanel';
 import SortBar from './components/SortBar';
 import ProductGrid from './components/ProductGrid';
+import styles from './App.module.css';
 
 export default function App() {
   const { data: products, loading, error } = useProducts();
@@ -31,9 +32,9 @@ export default function App() {
   }
 
   return (
-    <div className="page">
-      <div className="container">
-        <div className="layout">
+    <div className={styles.page}>
+      <div className={styles.container}>
+        <div className={styles.layout}>
           <FilterPanel
             currentFilters={filters}
             categories={categories}
@@ -45,10 +46,10 @@ export default function App() {
             onApplySavedFilter={(f) => { setSearchInput(f.search); setAllFilters(f); }}
           />
 
-          <div className="main-col">
-            <div className="search-card">
+          <div className={styles.mainCol}>
+            <div className={styles.searchCard}>
               <input
-                className="search-input"
+                className={styles.searchInput}
                 type="text"
                 placeholder="Search products..."
                 value={searchInput}
@@ -56,18 +57,18 @@ export default function App() {
                 onKeyDown={handleSearchKey}
                 aria-label="Search products"
               />
-              <button className="search-btn" onClick={handleSearch}>
-                <span className="search-btn__dot" aria-hidden="true" />
+              <button className={styles.searchBtn} onClick={handleSearch}>
+                <span className={styles.searchBtnDot} aria-hidden="true" />
                 Search
               </button>
             </div>
 
             {error ? (
-              <div className="error-state" role="alert">
+              <div className={styles.errorState} role="alert">
                 <p>Failed to load products: {error.message}</p>
               </div>
             ) : (
-              <div className="products-card">
+              <div className={styles.productsCard}>
                 <SortBar
                   sortBy={filters.sortBy}
                   onSortChange={(val) => updateFilter('sortBy', val)}

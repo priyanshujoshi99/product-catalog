@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { FilterState, SavedFilter } from '../types/product';
 import { DEFAULT_FILTERS } from '../hooks/useFilters';
+import styles from './FilterPanel.module.css';
 
 type PanelFilters = Omit<FilterState, 'search' | 'sortBy'>;
 
@@ -53,17 +54,17 @@ export default function FilterPanel({
   }
 
   return (
-    <aside className="filter-card">
-      <div className="filter-card__header">
-        <span className="filter-card__icon" aria-hidden="true">🎯</span>
-        <h2 className="filter-card__title">Filters</h2>
+    <aside className={styles.filterCard}>
+      <div className={styles.filterCardHeader}>
+        <span className={styles.filterCardIcon} aria-hidden="true">🎯</span>
+        <h2 className={styles.filterCardTitle}>Filters</h2>
       </div>
 
-      <div className="filter-group">
-        <label className="filter-label" htmlFor="fc-category">Category</label>
+      <div className={styles.filterGroup}>
+        <label className={styles.filterLabel} htmlFor="fc-category">Category</label>
         <select
           id="fc-category"
-          className="filter-select"
+          className={styles.filterSelect}
           value={local.category}
           onChange={(e) => update('category', e.target.value)}
           aria-label="Filter by category"
@@ -75,11 +76,11 @@ export default function FilterPanel({
         </select>
       </div>
 
-      <div className="filter-group">
-        <span className="filter-label">Price Range</span>
-        <div className="filter-price-row">
+      <div className={styles.filterGroup}>
+        <span className={styles.filterLabel}>Price Range</span>
+        <div className={styles.filterPriceRow}>
           <input
-            className="filter-input"
+            className={styles.filterInput}
             type="number"
             min="0"
             placeholder="Min"
@@ -88,7 +89,7 @@ export default function FilterPanel({
             aria-label="Minimum price"
           />
           <input
-            className="filter-input"
+            className={styles.filterInput}
             type="number"
             min="0"
             placeholder="Max"
@@ -99,11 +100,11 @@ export default function FilterPanel({
         </div>
       </div>
 
-      <div className="filter-group">
-        <label className="filter-label" htmlFor="fc-rating">Minimum Rating</label>
+      <div className={styles.filterGroup}>
+        <label className={styles.filterLabel} htmlFor="fc-rating">Minimum Rating</label>
         <select
           id="fc-rating"
-          className="filter-select"
+          className={styles.filterSelect}
           value={local.minRating}
           onChange={(e) => update('minRating', Number(e.target.value))}
           aria-label="Minimum rating"
@@ -115,11 +116,11 @@ export default function FilterPanel({
         </select>
       </div>
 
-      <div className="filter-group">
-        <label className="filter-label" htmlFor="fc-stock">Stock Status</label>
+      <div className={styles.filterGroup}>
+        <label className={styles.filterLabel} htmlFor="fc-stock">Stock Status</label>
         <select
           id="fc-stock"
-          className="filter-select"
+          className={styles.filterSelect}
           value={local.stockStatus}
           onChange={(e) => update('stockStatus', e.target.value as PanelFilters['stockStatus'])}
           aria-label="Stock status"
@@ -130,14 +131,14 @@ export default function FilterPanel({
         </select>
       </div>
 
-      <div className="filter-actions">
-        <button className="btn-apply" onClick={() => onApply(local)}>Apply Filters</button>
-        <button className="btn-clear-outline" onClick={handleClear}>Clear</button>
+      <div className={styles.filterActions}>
+        <button className={styles.btnApply} onClick={() => onApply(local)}>Apply Filters</button>
+        <button className={styles.btnClearOutline} onClick={handleClear}>Clear</button>
       </div>
 
-      <div className="filter-group">
+      <div className={styles.filterGroup}>
         <input
-          className="filter-input"
+          className={styles.filterInput}
           type="text"
           placeholder="Filter name..."
           value={filterName}
@@ -145,7 +146,7 @@ export default function FilterPanel({
           aria-label="Name for saved filter"
         />
         <button
-          className="btn-save-filter"
+          className={styles.btnSaveFilter}
           onClick={() => {
             if (filterName.trim()) {
               onSaveFilter(filterName.trim(), local);
@@ -158,23 +159,23 @@ export default function FilterPanel({
         </button>
       </div>
 
-      <hr className="filter-divider" />
+      <hr className={styles.filterDivider} />
 
-      <div className="saved-section">
-        <h3 className="saved-section__title">
+      <div className={styles.savedSection}>
+        <h3 className={styles.savedSectionTitle}>
           <span aria-hidden="true">📌</span> Saved Filters
         </h3>
         {savedFilters.length === 0 ? (
-          <p className="saved-section__empty">No saved filters yet</p>
+          <p className={styles.savedSectionEmpty}>No saved filters yet</p>
         ) : (
-          <ul className="saved-list">
+          <ul className={styles.savedList}>
             {savedFilters.map((sf) => (
-              <li key={sf.id} className="saved-item">
-                <button className="saved-item__apply" onClick={() => onApplySavedFilter(sf.filters)}>
+              <li key={sf.id} className={styles.savedItem}>
+                <button className={styles.savedItemApply} onClick={() => onApplySavedFilter(sf.filters)}>
                   {sf.name}
                 </button>
                 <button
-                  className="saved-item__delete"
+                  className={styles.savedItemDelete}
                   onClick={() => onDeleteSavedFilter(sf.id)}
                   aria-label={`Delete ${sf.name}`}
                 >

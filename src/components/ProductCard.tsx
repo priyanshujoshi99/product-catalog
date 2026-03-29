@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import type { Product } from '../types/product';
+import styles from './ProductCard.module.css';
 
 interface Props {
   product: Product;
@@ -11,34 +12,34 @@ const ProductCard = memo(function ProductCard({ product }: Props) {
   const inStock = product.stock > 0;
 
   return (
-    <article className="product-card">
-      <div className="product-card__img-wrap">
+    <article className={styles.productCard}>
+      <div className={styles.imgWrap}>
         <img
           src={product.thumbnail}
           alt={product.title}
           loading="lazy"
-          className="product-card__img"
+          className={styles.img}
         />
       </div>
-      <div className="product-card__body">
-        <span className="product-card__category">{product.category.toUpperCase()}</span>
-        <h3 className="product-card__title">{product.title}</h3>
-        <p className="product-card__desc">{product.description}</p>
-        <div className="product-card__bottom">
-          <div className="product-card__price-col">
-            <span className="product-card__price">
+      <div className={styles.body}>
+        <span className={styles.category}>{product.category.toUpperCase()}</span>
+        <h3 className={styles.title}>{product.title}</h3>
+        <p className={styles.desc}>{product.description}</p>
+        <div className={styles.bottom}>
+          <div className={styles.priceCol}>
+            <span className={styles.price}>
               ${discounted ? discountedPrice.toFixed(2) : product.price.toFixed(2)}
             </span>
             {discounted && (
-              <span className="product-card__price-original">${product.price.toFixed(2)}</span>
+              <span className={styles.priceOriginal}>${product.price.toFixed(2)}</span>
             )}
           </div>
-          <div className="product-card__rating">
-            <span className="product-card__star" aria-hidden="true">⭐</span>
+          <div className={styles.rating}>
+            <span className={styles.star} aria-hidden="true">⭐</span>
             <span>{product.rating.toFixed(2)}</span>
           </div>
         </div>
-        <p className={`product-card__stock ${inStock ? 'in-stock' : 'out-of-stock'}`}>
+        <p className={`${styles.stock} ${inStock ? styles.inStock : styles.outOfStock}`}>
           {inStock ? `In Stock: ${product.stock}` : 'Out of Stock'}
         </p>
       </div>
