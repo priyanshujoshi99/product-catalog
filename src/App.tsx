@@ -35,7 +35,7 @@ export default function App() {
   return (
     <div className={styles.page}>
       <div className={styles.container}>
-        <div className={styles.layout}>
+        <div className={styles.layout} data-testid="app-layout">
           <FilterPanel
             currentFilters={filters}
             categories={categories}
@@ -55,6 +55,7 @@ export default function App() {
                 className={styles.hamburgerBtn}
                 onClick={() => setMobileFiltersOpen(true)}
                 aria-label="Open filters"
+                data-testid="hamburger-btn"
               >
                 <span /><span /><span />
               </button>
@@ -66,19 +67,20 @@ export default function App() {
                 onChange={(e) => setSearchInput(e.target.value)}
                 onKeyDown={handleSearchKey}
                 aria-label="Search products"
+                data-testid="search-input"
               />
-              <button className={styles.searchBtn} onClick={handleSearch}>
+              <button className={styles.searchBtn} onClick={handleSearch} data-testid="search-btn">
                 <span className={styles.searchBtnDot} aria-hidden="true" />
                 Search
               </button>
             </div>
 
             {error ? (
-              <div className={styles.errorState} role="alert">
+              <div className={styles.errorState} role="alert" data-testid="error-state">
                 <p>Failed to load products: {error.message}</p>
               </div>
             ) : (
-              <div className={styles.productsCard}>
+              <div className={styles.productsCard} data-testid="products-card">
                 <SortBar
                   sortBy={filters.sortBy}
                   onSortChange={(val) => updateFilter('sortBy', val)}

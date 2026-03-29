@@ -12,7 +12,13 @@ const ProductCard = memo(function ProductCard({ product }: Props) {
   const inStock = product.stock > 0;
 
   return (
-    <article className={styles.productCard}>
+    <article
+      className={styles.productCard}
+      data-testid="product-card"
+      data-product-id={product.id}
+      data-price={product.price}
+      data-rating={product.rating}
+    >
       <div className={styles.imgWrap}>
         <img
           src={product.thumbnail}

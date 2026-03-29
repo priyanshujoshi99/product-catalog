@@ -60,13 +60,13 @@ export default function FilterPanel({
   return (
     <>
       {mobileOpen && (
-        <div className={styles.overlay} onClick={onMobileClose} aria-hidden="true" />
+        <div className={styles.overlay} onClick={onMobileClose} aria-hidden="true" data-testid="filter-overlay" />
       )}
-      <aside className={`${styles.filterCard} ${mobileOpen ? styles.filterCardMobileOpen : ''}`}>
+      <aside className={`${styles.filterCard} ${mobileOpen ? styles.filterCardMobileOpen : ''}`} data-testid="filter-panel">
       <div className={styles.filterCardHeader}>
         <span className={styles.filterCardIcon} aria-hidden="true">🎯</span>
         <h2 className={styles.filterCardTitle}>Filters</h2>
-        <button className={styles.closeBtn} onClick={onMobileClose} aria-label="Close filters">×</button>
+        <button className={styles.closeBtn} onClick={onMobileClose} aria-label="Close filters" data-testid="filter-close-btn">×</button>
       </div>
 
       <div className={styles.filterGroup}>
@@ -77,6 +77,7 @@ export default function FilterPanel({
           value={local.category}
           onChange={(e) => update('category', e.target.value)}
           aria-label="Filter by category"
+          data-testid="category-select"
         >
           <option value="">All Categories</option>
           {categories.map((cat) => (
@@ -96,6 +97,7 @@ export default function FilterPanel({
             value={local.priceMin}
             onChange={(e) => update('priceMin', e.target.value === '' ? '' : Number(e.target.value))}
             aria-label="Minimum price"
+            data-testid="price-min-input"
           />
           <input
             className={styles.filterInput}
@@ -105,6 +107,7 @@ export default function FilterPanel({
             value={local.priceMax}
             onChange={(e) => update('priceMax', e.target.value === '' ? '' : Number(e.target.value))}
             aria-label="Maximum price"
+            data-testid="price-max-input"
           />
         </div>
       </div>
@@ -117,6 +120,7 @@ export default function FilterPanel({
           value={local.minRating}
           onChange={(e) => update('minRating', Number(e.target.value))}
           aria-label="Minimum rating"
+          data-testid="rating-select"
         >
           <option value={0}>Any Rating</option>
           {[1, 2, 3, 4, 5].map((r) => (
@@ -133,6 +137,7 @@ export default function FilterPanel({
           value={local.stockStatus}
           onChange={(e) => update('stockStatus', e.target.value as PanelFilters['stockStatus'])}
           aria-label="Stock status"
+          data-testid="stock-select"
         >
           <option value="all">All Products</option>
           <option value="inStock">In Stock</option>
@@ -141,8 +146,8 @@ export default function FilterPanel({
       </div>
 
       <div className={styles.filterActions}>
-        <button className={styles.btnApply} onClick={() => onApply(local)}>Apply Filters</button>
-        <button className={styles.btnClearOutline} onClick={handleClear}>Clear</button>
+        <button className={styles.btnApply} onClick={() => onApply(local)} data-testid="apply-filters-btn">Apply Filters</button>
+        <button className={styles.btnClearOutline} onClick={handleClear} data-testid="clear-filters-btn">Clear</button>
       </div>
 
       <div className={styles.filterGroup}>
@@ -153,6 +158,7 @@ export default function FilterPanel({
           value={filterName}
           onChange={(e) => setFilterName(e.target.value)}
           aria-label="Name for saved filter"
+          data-testid="save-filter-name-input"
         />
         <button
           className={styles.btnSaveFilter}
@@ -163,6 +169,7 @@ export default function FilterPanel({
             }
           }}
           disabled={!filterName.trim()}
+          data-testid="save-filter-btn"
         >
           💾 Save Filter
         </button>
@@ -180,7 +187,12 @@ export default function FilterPanel({
           <ul className={styles.savedList}>
             {savedFilters.map((sf) => (
               <li key={sf.id} className={styles.savedItem}>
-                <button className={styles.savedItemApply} onClick={() => onApplySavedFilter(sf.filters)}>
+                <button
+                  className={styles.savedItemApply}
+                  onClick={() => onApplySavedFilter(sf.filters)}
+                  data-testid="saved-filter-apply-btn"
+                  aria-label={`Apply ${sf.name}`}
+                >
                   {sf.name}
                 </button>
                 <button

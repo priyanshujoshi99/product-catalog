@@ -1,73 +1,88 @@
-# React + TypeScript + Vite
+# Product Catalog
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive product catalog built with React and TypeScript. Browse 194 products with real-time search, multi-filter, sorting, infinite scroll, and saved filter presets.
 
-Currently, two official plugins are available:
+**Live demo:** https://priyanshujoshi99.github.io/product-catalog/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Search** — full-text search across product titles and descriptions
+- **Filtering** — filter by category, price range, minimum rating, and stock status
+- **Sorting** — sort by price (low/high) or rating
+- **Infinite scroll** — loads 12 products at a time via IntersectionObserver
+- **Saved filters** — save and reapply filter configurations, persisted to localStorage
+- **Mobile support** — slide-in filter panel with hamburger toggle at ≤860px
+- **Skeleton loaders** — placeholder cards while products load
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| Layer | Technology |
+|---|---|
+| Framework | React 19 + TypeScript 5 |
+| Build tool | Vite 8 |
+| Styling | CSS Modules + CSS variables |
+| HTTP client | Axios |
+| Unit tests | Vitest |
+| CI/CD | GitHub Actions → GitHub Pages |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Getting Started
+
+**Prerequisites:** Node.js 20+
+
+```bash
+# Install dependencies
+npm install
+
+# Start dev server (http://localhost:5173/product-catalog/)
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Scripts
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Command | Description |
+|---|---|
+| `npm run dev` | Start development server with HMR |
+| `npm run build` | Type-check and build for production |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run ESLint |
+| `npm run test` | Run unit tests (Vitest) |
+
+---
+
+## Project Structure
+
 ```
+src/
+├── components/       # UI components (FilterPanel, ProductCard, ProductGrid, SortBar)
+├── hooks/            # Custom hooks (useProducts, useFilters, usePagination, useSavedFilters)
+├── services/         # Data fetching (local JSON + optional remote API)
+├── utils/            # Pure functions for filtering and sorting (with unit tests)
+├── types/            # TypeScript interfaces
+└── data/             # products.json (194 demo products)
+```
+
+---
+
+## Testing
+
+Unit tests cover the filtering and sorting utilities:
+
+```bash
+npm run test
+```
+
+---
+
+## Deployment
+
+Pushing to `main` automatically builds and deploys to GitHub Pages via `.github/workflows/deploy.yml`.
+
+The app is served from the `/product-catalog/` base path, configured in `vite.config.ts`.

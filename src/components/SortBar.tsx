@@ -17,8 +17,8 @@ const SORT_OPTIONS: { value: FilterState['sortBy']; label: string }[] = [
 
 export default function SortBar({ sortBy, onSortChange, filteredCount, totalCount }: Props) {
   return (
-    <div className={styles.sortBar}>
-      <p className={styles.sortBarCount} role="status">
+    <div className={styles.sortBar} data-testid="sort-bar">
+      <p className={styles.sortBarCount} role="status" data-testid="product-count">
         Showing <strong>{filteredCount}</strong> of <strong>{totalCount}</strong> Products
       </p>
       <select
@@ -26,6 +26,7 @@ export default function SortBar({ sortBy, onSortChange, filteredCount, totalCoun
         value={sortBy}
         onChange={(e) => onSortChange(e.target.value as FilterState['sortBy'])}
         aria-label="Sort products"
+        data-testid="sort-select"
       >
         {SORT_OPTIONS.map((opt) => (
           <option key={opt.value} value={opt.value}>{opt.label}</option>

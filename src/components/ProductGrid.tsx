@@ -34,7 +34,7 @@ export default function ProductGrid({ products, loading, hasMore, onLoadMore, on
 
   if (loading) {
     return (
-      <div className={styles.productGrid}>
+      <div className={styles.productGrid} data-testid="product-grid-loading">
         {Array.from({ length: SKELETON_COUNT }, (_, i) => (
           <ProductSkeleton key={i} />
         ))}
@@ -44,18 +44,18 @@ export default function ProductGrid({ products, loading, hasMore, onLoadMore, on
 
   if (products.length === 0) {
     return (
-      <div className={styles.emptyState}>
+      <div className={styles.emptyState} data-testid="empty-state">
         <div className={styles.emptyStateIcon} aria-hidden="true">🔍</div>
         <h3 className={styles.emptyStateTitle}>No products found</h3>
         <p className={styles.emptyStateMsg}>Try adjusting your filters to see more results.</p>
-        <button className={styles.btnClear} onClick={onClearFilters}>Clear Filters</button>
+        <button className={styles.btnClear} onClick={onClearFilters} data-testid="empty-clear-btn">Clear Filters</button>
       </div>
     );
   }
 
   return (
     <>
-      <div className={styles.productGrid}>
+      <div className={styles.productGrid} data-testid="product-grid">
         {products.map((p) => (
           <ProductCard key={p.id} product={p} />
         ))}
