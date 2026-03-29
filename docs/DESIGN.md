@@ -1,29 +1,32 @@
 # Product Catalog — Design & Implementation Plan
 
 ## Stack
-- **Framework**: React + Vite + TypeScript
+- **Framework**: React 19 + Vite 8 + TypeScript 5.9
 - **HTTP**: Axios
-- **Testing**: Vitest
-- **Styling**: Plain CSS with custom properties (no CSS framework)
+- **Testing**: Vitest 4
+- **Styling**: CSS Modules + CSS custom properties (no CSS framework)
 
 ---
 
 ## Aesthetic Direction
 
-**Editorial Commerce** — dark navy sidebar contrasted with a warm off-white main content area.
+**Editorial Commerce** — purple/indigo accent on a white card surface, warm page background.
 
 | Token | Value |
 |---|---|
 | Display font | `DM Serif Display` (headings, product titles) |
 | UI font | `Outfit` (labels, inputs, body) |
-| Accent | Amber `#F59E0B` |
-| Sidebar bg | `#0F172A` (dark navy) |
-| Main bg | `#FAF7F2` (warm off-white) |
+| Primary accent | `#5B5FC7` (indigo-purple) |
+| Primary dark | `#4A4EAB` |
+| Page bg | `#7B7EC8` (muted purple) |
 | Card bg | `#FFFFFF` |
 | Text primary | `#1E293B` |
 | Text muted | `#64748B` |
+| Category color | `#6366F1` |
+| Success | `#16A34A` |
+| Error / Out-of-stock | `#DC2626` |
 
-Product cards have a subtle lift + shadow on hover. Filter transitions use `200ms ease`. Skeleton loaders pulse on initial data load.
+Product cards have a subtle lift (`translateY(-3px)`) + shadow increase on hover. Filter transitions use `200ms ease`. Skeleton loaders pulse on initial data load.
 
 ---
 
@@ -32,28 +35,37 @@ Product cards have a subtle lift + shadow on hover. Filter transitions use `200m
 ```
 src/
 ├── types/
-│   └── product.ts              # Product, FilterState, SavedFilter interfaces
+│   └── product.ts              # Product, FilterState, SavedFilter, AppError interfaces
 ├── data/
-│   └── products.json           # Copied from docs/products.json
+│   └── products.json           # Local product dataset (served as static asset by Vite)
 ├── services/
-│   └── productService.ts       # Simulated async fetch (wraps JSON in setTimeout)
+│   └── productService.ts       # Simulated async fetch (wraps JSON in setTimeout ~600ms)
 ├── hooks/
 │   ├── useProducts.ts          # Async load → { data, loading, error }
 │   ├── useFilters.ts           # Filter state + useMemo derived filteredProducts
+│   ├── usePagination.ts        # Generic pagination hook (PAGE_SIZE = 12)
 │   └── useSavedFilters.ts      # localStorage persistence for named filter sets
 ├── utils/
 │   ├── apiClient.ts            # Axios instance + request/response interceptors + error normalisation
 │   ├── filterUtils.ts          # Pure filter functions (unit-testable)
-│   └── sortUtils.ts            # Pure sort functions (unit-testable)
+│   ├── filterUtils.test.ts     # 20 Vitest test cases
+│   ├── sortUtils.ts            # Pure sort functions (unit-testable)
+│   └── sortUtils.test.ts       # 8 Vitest test cases
 ├── components/
-│   ├── Sidebar.tsx             # Saved filters list + "Save Current Filters" button
-│   ├── FilterPanel.tsx         # All filter controls + Clear All
-│   ├── ProductGrid.tsx         # Responsive grid, empty state, skeleton fallback
+│   ├── FilterPanel.tsx         # All filter controls + Clear All + mobile drawer
+│   ├── FilterPanel.module.css
+│   ├── ProductGrid.tsx         # Infinite-scroll grid, empty state, skeleton fallback
+│   ├── ProductGrid.module.css
 │   ├── ProductCard.tsx         # Image, category badge, title, price, stars, stock
+│   ├── ProductCard.module.css
 │   ├── ProductSkeleton.tsx     # Animated skeleton placeholder card
+│   ├── ProductSkeleton.module.css
 │   ├── SortBar.tsx             # Sort dropdown + "Showing X of Y Products" counter
-│   └── SaveFilterModal.tsx     # Modal dialog to name and save a filter set
+│   ├── SortBar.module.css
+│   ├── SaveFilterModal.tsx     # Modal dialog to name and save a filter set
+│   └── Sidebar.tsx             # Saved filters list + "Save Current Filters" button (defined, not integrated in main layout)
 ├── App.tsx
+├── App.module.css
 ├── main.tsx
 └── index.css                   # CSS variables, resets, animations
 ```
@@ -63,9 +75,9 @@ src/
 ## Feature Breakdown
 
 ### 1. Data Integration
-- `src/data/products.json` — local copy of the provided JSON file
+- `src/data/products.json` — local copy served as static asset by Vite
 - `apiClient.ts` creates a configured Axios instance; all HTTP calls go through it
-- `productService.ts` exposes `fetchProducts(): Promise<Product[]>` which calls `apiClient.get('/products.json')` (served as a static asset by Vite), with a simulated 600ms delay to mimic real network latency
+- `productService.ts` exposes `fetchProducts(): Promise<Product[]>` which calls `apiClient.get('/products.json')` with a simulated ~600ms delay to mimic real network latency
 - Swapping to a real API later requires changing only `productService.ts` (base URL + endpoint)
 
 ### 1a. HTTP Utility — `apiClient.ts`
@@ -90,7 +102,7 @@ All services call `apiClient` and receive either clean data or a thrown `AppErro
 
 | Filter | Implementation |
 |---|---|
-| Global Search | Text input; filters by `title` and `description` (case-insensitive) |
+| Global Search | Text input (debounced via searchInput local state); filters by `title` and `description` (case-insensitive) |
 | Category | Dropdown; derived from unique `category` values in the dataset |
 | Price Range | Two number inputs (`min` / `max`); both optional |
 | Minimum Rating | Dropdown (1–5 stars); shows products with `rating >= selected` |
@@ -101,20 +113,21 @@ All filtering is done in `filterUtils.ts` as pure functions over the product arr
 
 ### 3. State Persistence (Saved Filters)
 - `useSavedFilters` reads/writes to `localStorage` key `product-catalog-saved-filters`
-- Save flow: user clicks "Save Filters" → `SaveFilterModal` prompts for a name → saved to localStorage
-- Saved filter entries appear in the Sidebar; clicking one applies all its settings instantly
+- Save flow: user clicks "Save Filters" in the FilterPanel → `SaveFilterModal` prompts for a name → saved to localStorage
+- Saved filter entries appear in the FilterPanel sidebar section; clicking one applies all its settings instantly
+- Delete button removes individual saved filters
 - Saved filters survive browser refresh
 
 ### 4. Product Display & Sorting
 
 **ProductCard** shows:
-- Product image (lazy-loaded with `loading="lazy"`)
+- Product image (lazy-loaded with `loading="lazy"`, 4:3 aspect ratio container)
 - Category badge
 - Title (DM Serif Display)
-- Truncated description (2 lines)
-- Price (with discounted price if `discountPercentage > 0`)
+- Truncated description (2-line clamp)
+- Price (with strikethrough original price if `discountPercentage > 0`)
 - Star rating (filled/half/empty SVG stars)
-- Stock count badge (green = in stock, red = out of stock)
+- Stock badge (green = in stock, red = out of stock with count)
 
 **SortBar** options:
 - Price: Low to High
@@ -122,6 +135,19 @@ All filtering is done in `filterUtils.ts` as pure functions over the product arr
 - Rating: High to Low
 
 **Counter**: "Showing {filtered} of {total} Products"
+
+### 5. Pagination (Infinite Scroll)
+- `usePagination` is a generic hook: `<T>(items: T[]) => { visibleItems, hasMore, loadMore }`
+- `PAGE_SIZE = 12` items per page; resets to page 1 whenever the input array changes (filter/sort change)
+- `ProductGrid` uses `IntersectionObserver` on a sentinel `div` at the bottom of the list
+- When the sentinel enters the viewport, `loadMore()` is called automatically
+- "You've seen all products" message shown when `hasMore === false`
+
+### 6. Mobile Layout
+- Hamburger button appears at ≤860px breakpoint; hidden on desktop
+- FilterPanel renders as a slide-in drawer with an overlay backdrop on mobile
+- `mobileOpen` state in App manages open/close; `onMobileClose` callback closes on overlay tap or apply
+- ProductGrid switches to 2-column layout at ≤560px, 1-column at ≤380px
 
 ---
 
@@ -139,10 +165,16 @@ interface FilterState {
 }
 
 interface SavedFilter {
-  id: string;
+  id: string;              // crypto.randomUUID()
   name: string;
   filters: FilterState;
-  createdAt: number;
+  createdAt: number;       // Date.now() timestamp
+}
+
+interface AppError {
+  message: string;
+  status?: number;
+  code?: string;
 }
 ```
 
@@ -151,8 +183,10 @@ interface SavedFilter {
 ## Performance
 
 - `useMemo` wraps the filter + sort pipeline so it only re-runs when `products` or `filters` changes
-- `React.memo` on `ProductCard` prevents re-renders when other cards update
+- `React.memo` on `ProductCard` and `ProductSkeleton` prevents re-renders when other cards update
 - Images use `loading="lazy"` and fixed aspect-ratio containers to avoid layout shift
+- `usePagination` slices the visible items array, limiting DOM nodes rendered at once
+- `IntersectionObserver` used for scroll-based `loadMore` (no scroll event listeners)
 
 ---
 
@@ -161,7 +195,9 @@ interface SavedFilter {
 | Item | Approach |
 |---|---|
 | Skeleton loaders | 12 `ProductSkeleton` cards shown while `loading === true` |
-| Empty state | Illustrated message + "Clear Filters" CTA when `filteredProducts.length === 0` |
-| Accessibility | `aria-label` on all inputs; `role="status"` on counter; keyboard-navigable filters |
-| Unit tests | Vitest tests for all functions in `filterUtils.ts`, `sortUtils.ts`, and `apiClient.ts` error normaliser |
+| Empty state | Message + "Clear Filters" CTA when `filteredProducts.length === 0` |
+| Accessibility | `aria-label` on inputs; `role="status"` on counter; keyboard-navigable filters |
+| Unit tests | Vitest tests for all functions in `filterUtils.ts` (20 cases) and `sortUtils.ts` (8 cases) |
 | API scalability | `productService.ts` is the single swap-point for JSON → REST/GraphQL; `apiClient.ts` config is the single swap-point for base URL and auth |
+| Infinite scroll | IntersectionObserver-based via `usePagination` + scroll sentinel in `ProductGrid` |
+| Saved filters | Named filter presets persisted to `localStorage`, applied with one click |
