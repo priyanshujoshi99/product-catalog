@@ -65,7 +65,7 @@ export default function App() {
                 <p>Failed to load products: {error.message}</p>
               </div>
             ) : (
-              <>
+              <div className="products-card">
                 <SortBar
                   sortBy={filters.sortBy}
                   onSortChange={(val) => updateFilter('sortBy', val)}
@@ -77,7 +77,7 @@ export default function App() {
                   loading={loading}
                   onClearFilters={handleClearAll}
                 />
-              </>
+              </div>
             )}
           </div>
         </div>
