@@ -61,7 +61,10 @@ npm run dev
 
 ```
 src/
-├── components/       # UI components (FilterPanel, ProductCard, ProductGrid, SortBar)
+├── components/
+│   ├── shared/       # Generic cross-app components (ErrorBoundary)
+│   ├── ui/           # Pure presentational components (ProductCard, ProductSkeleton)
+│   └── */            # Named feature folders (FilterPanel, ProductGrid, SortBar, …)
 ├── hooks/            # Custom hooks (useProducts, useFilters, usePagination, useSavedFilters)
 ├── services/         # Data fetching (local JSON + optional remote API)
 ├── utils/            # Pure functions for filtering and sorting (with unit tests)

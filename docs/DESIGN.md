@@ -1,4 +1,4 @@
-# Product Catalog — Design & Implementation Plan
+# Product Catalog — Design
 
 ## Stack
 - **Framework**: React 19 + Vite 8 + TypeScript 5.9
@@ -52,18 +52,16 @@ src/
 │   ├── sortUtils.ts            # Pure sort functions (unit-testable)
 │   └── sortUtils.test.ts       # 8 Vitest test cases
 ├── components/
-│   ├── FilterPanel.tsx         # All filter controls + Clear All + mobile drawer
-│   ├── FilterPanel.module.css
-│   ├── ProductGrid.tsx         # Infinite-scroll grid, empty state, skeleton fallback
-│   ├── ProductGrid.module.css
-│   ├── ProductCard.tsx         # Image, category badge, title, price, stars, stock
-│   ├── ProductCard.module.css
-│   ├── ProductSkeleton.tsx     # Animated skeleton placeholder card
-│   ├── ProductSkeleton.module.css
-│   ├── SortBar.tsx             # Sort dropdown + "Showing X of Y Products" counter
-│   ├── SortBar.module.css
-│   ├── SaveFilterModal.tsx     # Modal dialog to name and save a filter set
-│   └── Sidebar.tsx             # Saved filters list + "Save Current Filters" button (defined, not integrated in main layout)
+│   ├── shared/
+│   │   └── ErrorBoundary/      # Generic React error boundary (used in App.tsx)
+│   ├── ui/
+│   │   ├── ProductCard/        # Image, category badge, title, price, stars, stock
+│   │   └── ProductSkeleton/    # Animated skeleton placeholder card
+│   ├── FilterPanel/            # All filter controls + Clear All + mobile drawer
+│   ├── ProductGrid/            # Infinite-scroll grid, empty state, skeleton fallback
+│   ├── SaveFilterModal/        # Modal dialog to name and save a filter set
+│   ├── Sidebar/                # Saved filters list + "Save Current Filters" button (defined, not integrated in main layout)
+│   └── SortBar/                # Sort dropdown + "Showing X of Y Products" counter
 ├── App.tsx
 ├── App.module.css
 ├── main.tsx

@@ -1,4 +1,4 @@
-import type { SavedFilter, FilterState } from '../types/product';
+import type { SavedFilter, FilterState } from '../../types/product';
 
 interface Props {
   savedFilters: SavedFilter[];

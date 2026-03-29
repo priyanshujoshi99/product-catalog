@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import type { FilterState, SavedFilter } from '../types/product';
-import { DEFAULT_FILTERS } from '../hooks/useFilters';
+import type { FilterState, SavedFilter } from '../../types/product';
+import { DEFAULT_FILTERS } from '../../hooks/useFilters';
 import styles from './FilterPanel.module.css';
 
 type PanelFilters = Omit<FilterState, 'search' | 'sortBy'>;

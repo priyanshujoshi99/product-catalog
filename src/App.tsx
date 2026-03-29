@@ -1,98 +1,7 @@
-import { Suspense, useState } from 'react';
-import { useProducts } from './hooks/useProducts';
-import { useFilters } from './hooks/useFilters';
-import { useSavedFilters } from './hooks/useSavedFilters';
-import { usePagination } from './hooks/usePagination';
-import { getUniqueCategories } from './utils/filterUtils';
-import ErrorBoundary from './components/ErrorBoundary';
-import FilterPanel from './components/FilterPanel';
-import SortBar from './components/SortBar';
-import ProductGrid from './components/ProductGrid';
+import { Suspense } from 'react';
+import ErrorBoundary from './components/shared/ErrorBoundary';
+import ProductCatalog from './screens/ProductCatalog';
 import styles from './App.module.css';
-
-function ProductCatalog() {
-  const products = useProducts();
-  const { filters, filteredProducts, setAllFilters, updateFilter, clearFilters } = useFilters(products);
-  const { savedFilters, saveFilter, deleteFilter } = useSavedFilters();
-  const { visibleItems, hasMore, loadMore } = usePagination(filteredProducts);
-  const [searchInput, setSearchInput] = useState('');
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-
-  const categories = getUniqueCategories(products);
-
-  function handleSearch() {
-    updateFilter('search', searchInput);
-  }
-
-  function handleSearchKey(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter') handleSearch();
-  }
-
-  function handleClearAll() {
-    setSearchInput('');
-    clearFilters();
-  }
-
-  return (
-    <div className={styles.layout} data-testid="app-layout">
-      <FilterPanel
-        currentFilters={filters}
-        categories={categories}
-        onApply={(panelFilters) => setAllFilters({ ...panelFilters, search: filters.search, sortBy: filters.sortBy })}
-        onClear={handleClearAll}
-        savedFilters={savedFilters}
-        onSaveFilter={(name, panelFilters) => saveFilter(name, { ...panelFilters, search: filters.search, sortBy: filters.sortBy })}
-        onDeleteSavedFilter={deleteFilter}
-        onApplySavedFilter={(f) => { setSearchInput(f.search); setAllFilters(f); }}
-        mobileOpen={mobileFiltersOpen}
-        onMobileClose={() => setMobileFiltersOpen(false)}
-      />
-
-      <div className={styles.mainCol}>
-        <div className={styles.searchCard}>
-          <button
-            className={styles.hamburgerBtn}
-            onClick={() => setMobileFiltersOpen(true)}
-            aria-label="Open filters"
-            data-testid="hamburger-btn"
-          >
-            <span /><span /><span />
-          </button>
-          <input
-            className={styles.searchInput}
-            type="text"
-            placeholder="Search products..."
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            onKeyDown={handleSearchKey}
-            aria-label="Search products"
-            data-testid="search-input"
-          />
-          <button className={styles.searchBtn} onClick={handleSearch} data-testid="search-btn">
-            <span className={styles.searchBtnDot} aria-hidden="true" />
-            Search
-          </button>
-        </div>
-
-        <SortBar
-          sortBy={filters.sortBy}
-          onSortChange={(val) => updateFilter('sortBy', val)}
-          filteredCount={visibleItems.length}
-          totalCount={filteredProducts.length}
-        />
-        <div className={styles.productsCard} data-testid="products-card">
-          <ProductGrid
-            products={visibleItems}
-            loading={false}
-            hasMore={hasMore}
-            onLoadMore={loadMore}
-            onClearFilters={handleClearAll}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function App() {
   return (
@@ -106,7 +15,7 @@ export default function App() {
           }
         >
           <Suspense fallback={
-            <div className={styles.productsCard} data-testid="product-grid-loading">
+            <div className={styles.loadingCard} data-testid="product-grid-loading">
               Loading products...
             </div>
           }>

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
-import type { Product } from '../types/product';
-import ProductCard from './ProductCard';
-import ProductSkeleton from './ProductSkeleton';
+import type { Product } from '../../types/product';
+import ProductCard from '../ui/ProductCard';
+import ProductSkeleton from '../ui/ProductSkeleton';
 import styles from './ProductGrid.module.css';
 
 interface Props {

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import type { Product } from '../types/product';
+import type { Product } from '../../../types/product';
 import styles from './ProductCard.module.css';
 
 interface Props {

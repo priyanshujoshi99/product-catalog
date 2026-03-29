@@ -1,4 +1,4 @@
-import type { FilterState } from '../types/product';
+import type { FilterState } from '../../types/product';
 import styles from './SortBar.module.css';
 
 interface Props {
