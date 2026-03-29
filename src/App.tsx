@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useProducts } from './hooks/useProducts';
 import { useFilters } from './hooks/useFilters';
 import { useSavedFilters } from './hooks/useSavedFilters';
+import { usePagination } from './hooks/usePagination';
 import { getUniqueCategories } from './utils/filterUtils';
 import FilterPanel from './components/FilterPanel';
 import SortBar from './components/SortBar';
@@ -11,6 +12,7 @@ export default function App() {
   const { data: products, loading, error } = useProducts();
   const { filters, filteredProducts, setAllFilters, updateFilter, clearFilters } = useFilters(products);
   const { savedFilters, saveFilter, deleteFilter } = useSavedFilters();
+  const { visibleItems, hasMore, loadMore } = usePagination(filteredProducts);
   const [searchInput, setSearchInput] = useState('');
 
   const categories = getUniqueCategories(products);
@@ -73,8 +75,10 @@ export default function App() {
                   totalCount={products.length}
                 />
                 <ProductGrid
-                  products={filteredProducts}
+                  products={visibleItems}
                   loading={loading}
+                  hasMore={hasMore}
+                  onLoadMore={loadMore}
                   onClearFilters={handleClearAll}
                 />
               </div>
