@@ -33,7 +33,9 @@
   transition: background var(--transition);
 }
 
-.hamburgerBtn:hover { background: #F8FAFC; }
+.hamburgerBtn:hover {
+  background: #f8fafc;
+}
 
 .hamburgerBtn span {
   display: block;
@@ -62,12 +64,14 @@
   color: var(--text-primary);
   background: #fff;
   outline: none;
-  transition: border-color var(--transition), box-shadow var(--transition);
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
 }
 
 .searchInput:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(99,102,241,.15);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
 .searchBtn {
@@ -84,13 +88,15 @@
   transition: background var(--transition);
 }
 
-.searchBtn:hover { background: var(--primary-dark); }
+.searchBtn:hover {
+  background: var(--primary-dark);
+}
 
 .searchBtnDot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: rgba(255,255,255,.7);
+  background: rgba(255, 255, 255, 0.7);
   flex-shrink: 0;
 }
 
@@ -108,14 +114,36 @@
 }
 
 @media (max-width: 860px) {
-  .layout { flex-direction: column; overflow: visible; }
-  .mainCol { overflow: visible; }
-  .productsCard { overflow: visible; max-height: 80vh; overflow-y: auto; }
-  .hamburgerBtn { display: flex; }
+  .layout {
+    flex-direction: column;
+    overflow: visible;
+  }
+  .mainCol {
+    overflow: visible;
+  }
+  .productsCard {
+    overflow: visible;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  .hamburgerBtn {
+    display: flex;
+  }
 }
 
 @media (max-width: 560px) {
-  .searchCard { padding: 0.75rem; gap: 0.5rem; }
-  .searchInput { min-width: 0; font-size: 0.875rem; }
-  .searchBtn { padding: 0.6rem 0.9rem; font-size: 0.85rem; white-space: nowrap; flex-shrink: 0; }
+  .searchCard {
+    padding: 0.75rem;
+    gap: 0.5rem;
+  }
+  .searchInput {
+    min-width: 0;
+    font-size: 0.875rem;
+  }
+  .searchBtn {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
 }

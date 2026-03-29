@@ -29,7 +29,9 @@ export default function SortBar({ sortBy, onSortChange, filteredCount, totalCoun
         data-testid="sort-select"
       >
         {SORT_OPTIONS.map((opt) => (
-          <option key={opt.value} value={opt.value}>{opt.label}</option>
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
         ))}
       </select>
     </div>

@@ -20,12 +20,7 @@ const ProductCard = memo(function ProductCard({ product }: Props) {
       data-rating={product.rating}
     >
       <div className={styles.imgWrap}>
-        <img
-          src={product.thumbnail}
-          alt={product.title}
-          loading="lazy"
-          className={styles.img}
-        />
+        <img src={product.thumbnail} alt={product.title} loading="lazy" className={styles.img} />
       </div>
       <div className={styles.body}>
         <span className={styles.category}>{product.category.toUpperCase()}</span>
@@ -41,7 +36,9 @@ const ProductCard = memo(function ProductCard({ product }: Props) {
             )}
           </div>
           <div className={styles.rating}>
-            <span className={styles.star} aria-hidden="true">⭐</span>
+            <span className={styles.star} aria-hidden="true">
+              ⭐
+            </span>
             <span>{product.rating.toFixed(2)}</span>
           </div>
         </div>

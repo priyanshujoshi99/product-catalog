@@ -10,7 +10,9 @@
   color: var(--text-primary);
 }
 
-.sortBarCount strong { font-weight: 600; }
+.sortBarCount strong {
+  font-weight: 600;
+}
 
 .sortBarSelect {
   padding: 0.45rem 0.75rem;
@@ -24,4 +26,6 @@
   transition: border-color var(--transition);
 }
 
-.sortBarSelect:focus { border-color: var(--primary); }
+.sortBarSelect:focus {
+  border-color: var(--primary);
+}

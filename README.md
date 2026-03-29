@@ -20,14 +20,14 @@ A responsive product catalog built with React and TypeScript. Browse 194 product
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Framework | React 19 + TypeScript 5 |
-| Build tool | Vite 8 |
-| Styling | CSS Modules + CSS variables |
-| HTTP client | Axios |
-| Unit tests | Vitest |
-| CI/CD | GitHub Actions → GitHub Pages |
+| Layer       | Technology                    |
+| ----------- | ----------------------------- |
+| Framework   | React 19 + TypeScript 5       |
+| Build tool  | Vite 8                        |
+| Styling     | CSS Modules + CSS variables   |
+| HTTP client | Axios                         |
+| Unit tests  | Vitest                        |
+| CI/CD       | GitHub Actions → GitHub Pages |
 
 ---
 
@@ -47,13 +47,13 @@ npm run dev
 
 ## Scripts
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Start development server with HMR |
-| `npm run build` | Type-check and build for production |
+| Command           | Description                          |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Start development server with HMR    |
+| `npm run build`   | Type-check and build for production  |
 | `npm run preview` | Preview the production build locally |
-| `npm run lint` | Run ESLint |
-| `npm run test` | Run unit tests (Vitest) |
+| `npm run lint`    | Run ESLint                           |
+| `npm run test`    | Run unit tests (Vitest)              |
 
 ---
 

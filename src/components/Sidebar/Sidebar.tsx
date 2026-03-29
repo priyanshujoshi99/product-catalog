@@ -25,10 +25,7 @@ export default function Sidebar({ savedFilters, onApply, onDelete, onSaveClick }
           <ul className="sidebar__list">
             {savedFilters.map((sf) => (
               <li key={sf.id} className="sidebar__item">
-                <button
-                  className="sidebar__item-apply"
-                  onClick={() => onApply(sf.filters)}
-                >
+                <button className="sidebar__item-apply" onClick={() => onApply(sf.filters)}>
                   {sf.name}
                 </button>
                 <button

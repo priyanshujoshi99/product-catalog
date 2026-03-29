@@ -1,3 +1,3 @@
-import SortBar from "./SortBar";
+import SortBar from './SortBar';
 
 export default SortBar;

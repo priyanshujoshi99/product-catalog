@@ -1,3 +1,3 @@
-import ProductSkeleton from "./ProductSkeleton";
+import ProductSkeleton from './ProductSkeleton';
 
 export default ProductSkeleton;

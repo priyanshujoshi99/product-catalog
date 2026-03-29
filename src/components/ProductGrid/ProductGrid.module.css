@@ -16,9 +16,17 @@
   text-align: center;
 }
 
-.emptyStateIcon { font-size: 3rem; }
-.emptyStateTitle { font-weight: 700; font-size: 1.2rem; }
-.emptyStateMsg { color: var(--text-muted); font-size: 0.9rem; }
+.emptyStateIcon {
+  font-size: 3rem;
+}
+.emptyStateTitle {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+.emptyStateMsg {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
 
 .btnClear {
   padding: 0.55rem 1.25rem;
@@ -31,7 +39,9 @@
   transition: background var(--transition);
 }
 
-.btnClear:hover { background: var(--primary-dark); }
+.btnClear:hover {
+  background: var(--primary-dark);
+}
 
 .scrollSentinel {
   height: 1px;
@@ -46,9 +56,13 @@
 }
 
 @media (max-width: 560px) {
-  .productGrid { grid-template-columns: 1fr 1fr; }
+  .productGrid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @media (max-width: 380px) {
-  .productGrid { grid-template-columns: 1fr; }
+  .productGrid {
+    grid-template-columns: 1fr;
+  }
 }

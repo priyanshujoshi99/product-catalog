@@ -29,9 +29,13 @@
   transition: color var(--transition);
 }
 
-.closeBtn:hover { color: var(--text-primary); }
+.closeBtn:hover {
+  color: var(--text-primary);
+}
 
-.filterCardIcon { font-size: 1.1rem; }
+.filterCardIcon {
+  font-size: 1.1rem;
+}
 
 .filterCardTitle {
   font-size: 1.1rem;
@@ -61,14 +65,16 @@
   color: var(--text-primary);
   background: #fff;
   outline: none;
-  transition: border-color var(--transition), box-shadow var(--transition);
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
   appearance: auto;
 }
 
 .filterSelect:focus,
 .filterInput:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(99,102,241,.15);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
 .filterPriceRow {
@@ -76,7 +82,9 @@
   gap: 0.5rem;
 }
 
-.filterPriceRow .filterInput { flex: 1; }
+.filterPriceRow .filterInput {
+  flex: 1;
+}
 
 .filterActions {
   display: flex;
@@ -94,7 +102,9 @@
   transition: background var(--transition);
 }
 
-.btnApply:hover { background: var(--primary-dark); }
+.btnApply:hover {
+  background: var(--primary-dark);
+}
 
 .btnClearOutline {
   flex: 0 0 auto;
@@ -105,12 +115,14 @@
   font-size: 0.875rem;
   color: var(--text-primary);
   background: #fff;
-  transition: background var(--transition), border-color var(--transition);
+  transition:
+    background var(--transition),
+    border-color var(--transition);
 }
 
 .btnClearOutline:hover {
-  background: #F8FAFC;
-  border-color: #CBD5E1;
+  background: #f8fafc;
+  border-color: #cbd5e1;
 }
 
 .btnSaveFilter {
@@ -125,8 +137,13 @@
   transition: background var(--transition);
 }
 
-.btnSaveFilter:hover:not(:disabled) { background: var(--primary-dark); }
-.btnSaveFilter:disabled { opacity: 0.5; cursor: default; }
+.btnSaveFilter:hover:not(:disabled) {
+  background: var(--primary-dark);
+}
+.btnSaveFilter:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
 
 .filterDivider {
   border: none;
@@ -134,7 +151,11 @@
   margin: 0;
 }
 
-.savedSection { display: flex; flex-direction: column; gap: 0.5rem; }
+.savedSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
 
 .savedSectionTitle {
   font-size: 0.9rem;
@@ -150,7 +171,11 @@
   color: var(--text-muted);
 }
 
-.savedList { display: flex; flex-direction: column; gap: 0.25rem; }
+.savedList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
 
 .savedItem {
   display: flex;
@@ -159,7 +184,9 @@
   overflow: hidden;
 }
 
-.savedItem:hover { background: #F8FAFC; }
+.savedItem:hover {
+  background: #f8fafc;
+}
 
 .savedItemApply {
   flex: 1;
@@ -177,7 +204,9 @@
   transition: color var(--transition);
 }
 
-.savedItemDelete:hover { color: var(--red); }
+.savedItemDelete:hover {
+  color: var(--red);
+}
 
 .overlay {
   display: none;
@@ -204,7 +233,7 @@
     overflow-y: auto;
     transform: translateX(-110%);
     transition: transform 0.28s ease;
-    box-shadow: 4px 0 24px rgba(0,0,0,.18);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.18);
   }
 
   .filterCardMobileOpen {

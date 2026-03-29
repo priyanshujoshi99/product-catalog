@@ -11,7 +11,8 @@ import styles from './ProductCatalog.module.css';
 
 export default function ProductCatalog() {
   const products = useProducts();
-  const { filters, filteredProducts, setAllFilters, updateFilter, clearFilters } = useFilters(products);
+  const { filters, filteredProducts, setAllFilters, updateFilter, clearFilters } =
+    useFilters(products);
   const { savedFilters, saveFilter, deleteFilter } = useSavedFilters();
   const { visibleItems, hasMore, loadMore } = usePagination(filteredProducts);
   const [searchInput, setSearchInput] = useState('');
@@ -37,12 +38,19 @@ export default function ProductCatalog() {
       <FilterPanel
         currentFilters={filters}
         categories={categories}
-        onApply={(panelFilters) => setAllFilters({ ...panelFilters, search: filters.search, sortBy: filters.sortBy })}
+        onApply={(panelFilters) =>
+          setAllFilters({ ...panelFilters, search: filters.search, sortBy: filters.sortBy })
+        }
         onClear={handleClearAll}
         savedFilters={savedFilters}
-        onSaveFilter={(name, panelFilters) => saveFilter(name, { ...panelFilters, search: filters.search, sortBy: filters.sortBy })}
+        onSaveFilter={(name, panelFilters) =>
+          saveFilter(name, { ...panelFilters, search: filters.search, sortBy: filters.sortBy })
+        }
         onDeleteSavedFilter={deleteFilter}
-        onApplySavedFilter={(f) => { setSearchInput(f.search); setAllFilters(f); }}
+        onApplySavedFilter={(f) => {
+          setSearchInput(f.search);
+          setAllFilters(f);
+        }}
         mobileOpen={mobileFiltersOpen}
         onMobileClose={() => setMobileFiltersOpen(false)}
       />
@@ -55,7 +63,9 @@ export default function ProductCatalog() {
             aria-label="Open filters"
             data-testid="hamburger-btn"
           >
-            <span /><span /><span />
+            <span />
+            <span />
+            <span />
           </button>
           <input
             className={styles.searchInput}

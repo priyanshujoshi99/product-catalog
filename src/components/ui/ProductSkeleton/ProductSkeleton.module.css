@@ -1,11 +1,17 @@
 @keyframes skeletonPulse {
-  0%   { opacity: 1; }
-  50%  { opacity: 0.45; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .skeleton {
-  background: #E2E8F0;
+  background: #e2e8f0;
   border-radius: 4px;
   animation: skeletonPulse 1.6s ease infinite;
 }
@@ -30,8 +36,23 @@
   gap: 0.5rem;
 }
 
-.skeletonBadge  { height: 14px; width: 55px; }
-.skeletonTitle  { height: 18px; width: 80%; }
-.skeletonDesc   { height: 12px; width: 100%; }
-.skeletonDesc.short { width: 65%; }
-.skeletonPrice  { height: 20px; width: 45%; margin-top: 0.25rem; }
+.skeletonBadge {
+  height: 14px;
+  width: 55px;
+}
+.skeletonTitle {
+  height: 18px;
+  width: 80%;
+}
+.skeletonDesc {
+  height: 12px;
+  width: 100%;
+}
+.skeletonDesc.short {
+  width: 65%;
+}
+.skeletonPrice {
+  height: 20px;
+  width: 45%;
+  margin-top: 0.25rem;
+}

@@ -42,10 +42,17 @@
 }
 
 @media (max-width: 860px) {
-  .page { height: auto; overflow: visible; }
-  .container { overflow: visible; }
+  .page {
+    height: auto;
+    overflow: visible;
+  }
+  .container {
+    overflow: visible;
+  }
 }
 
 @media (max-width: 560px) {
-  .page { padding: 1rem; }
+  .page {
+    padding: 1rem;
+  }
 }

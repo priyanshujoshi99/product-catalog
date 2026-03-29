@@ -14,11 +14,13 @@ export default function App() {
             </div>
           }
         >
-          <Suspense fallback={
-            <div className={styles.loadingCard} data-testid="product-grid-loading">
-              Loading products...
-            </div>
-          }>
+          <Suspense
+            fallback={
+              <div className={styles.loadingCard} data-testid="product-grid-loading">
+                Loading products...
+              </div>
+            }
+          >
             <ProductCatalog />
           </Suspense>
         </ErrorBoundary>
