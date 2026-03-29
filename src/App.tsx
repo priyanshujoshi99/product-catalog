@@ -80,21 +80,23 @@ export default function App() {
                 <p>Failed to load products: {error.message}</p>
               </div>
             ) : (
-              <div className={styles.productsCard} data-testid="products-card">
+              <>
                 <SortBar
                   sortBy={filters.sortBy}
                   onSortChange={(val) => updateFilter('sortBy', val)}
                   filteredCount={visibleItems.length}
                   totalCount={filteredProducts.length}
                 />
-                <ProductGrid
-                  products={visibleItems}
-                  loading={loading}
-                  hasMore={hasMore}
-                  onLoadMore={loadMore}
-                  onClearFilters={handleClearAll}
-                />
-              </div>
+                <div className={styles.productsCard} data-testid="products-card">
+                  <ProductGrid
+                    products={visibleItems}
+                    loading={loading}
+                    hasMore={hasMore}
+                    onLoadMore={loadMore}
+                    onClearFilters={handleClearAll}
+                  />
+                </div>
+              </>
             )}
           </div>
         </div>
