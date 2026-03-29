@@ -15,6 +15,7 @@ export default function App() {
   const { savedFilters, saveFilter, deleteFilter } = useSavedFilters();
   const { visibleItems, hasMore, loadMore } = usePagination(filteredProducts);
   const [searchInput, setSearchInput] = useState('');
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   const categories = getUniqueCategories(products);
 
@@ -44,10 +45,19 @@ export default function App() {
             onSaveFilter={(name, panelFilters) => saveFilter(name, { ...panelFilters, search: filters.search, sortBy: filters.sortBy })}
             onDeleteSavedFilter={deleteFilter}
             onApplySavedFilter={(f) => { setSearchInput(f.search); setAllFilters(f); }}
+            mobileOpen={mobileFiltersOpen}
+            onMobileClose={() => setMobileFiltersOpen(false)}
           />
 
           <div className={styles.mainCol}>
             <div className={styles.searchCard}>
+              <button
+                className={styles.hamburgerBtn}
+                onClick={() => setMobileFiltersOpen(true)}
+                aria-label="Open filters"
+              >
+                <span /><span /><span />
+              </button>
               <input
                 className={styles.searchInput}
                 type="text"

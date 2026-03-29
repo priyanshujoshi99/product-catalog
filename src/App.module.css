@@ -39,6 +39,32 @@
   overflow: hidden;
 }
 
+.hamburgerBtn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  border-radius: var(--radius-input);
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.hamburgerBtn:hover { background: #F8FAFC; }
+
+.hamburgerBtn span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+}
+
 .searchCard {
   background: var(--card-bg);
   border-radius: var(--radius-card);
@@ -118,8 +144,12 @@
   .layout { flex-direction: column; overflow: visible; }
   .mainCol { overflow: visible; }
   .productsCard { overflow: visible; max-height: 80vh; overflow-y: auto; }
+  .hamburgerBtn { display: flex; }
 }
 
 @media (max-width: 560px) {
   .page { padding: 1rem; }
+  .searchCard { padding: 0.75rem; gap: 0.5rem; }
+  .searchInput { min-width: 0; font-size: 0.875rem; }
+  .searchBtn { padding: 0.6rem 0.9rem; font-size: 0.85rem; white-space: nowrap; flex-shrink: 0; }
 }

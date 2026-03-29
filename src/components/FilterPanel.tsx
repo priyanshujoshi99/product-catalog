@@ -24,6 +24,8 @@ interface Props {
   onSaveFilter: (name: string, filters: PanelFilters) => void;
   onDeleteSavedFilter: (id: string) => void;
   onApplySavedFilter: (filters: FilterState) => void;
+  mobileOpen?: boolean;
+  onMobileClose?: () => void;
 }
 
 export default function FilterPanel({
@@ -35,6 +37,8 @@ export default function FilterPanel({
   onSaveFilter,
   onDeleteSavedFilter,
   onApplySavedFilter,
+  mobileOpen,
+  onMobileClose,
 }: Props) {
   const [local, setLocal] = useState<PanelFilters>(toPanelFilters(currentFilters));
   const [filterName, setFilterName] = useState('');
@@ -54,10 +58,15 @@ export default function FilterPanel({
   }
 
   return (
-    <aside className={styles.filterCard}>
+    <>
+      {mobileOpen && (
+        <div className={styles.overlay} onClick={onMobileClose} aria-hidden="true" />
+      )}
+      <aside className={`${styles.filterCard} ${mobileOpen ? styles.filterCardMobileOpen : ''}`}>
       <div className={styles.filterCardHeader}>
         <span className={styles.filterCardIcon} aria-hidden="true">🎯</span>
         <h2 className={styles.filterCardTitle}>Filters</h2>
+        <button className={styles.closeBtn} onClick={onMobileClose} aria-label="Close filters">×</button>
       </div>
 
       <div className={styles.filterGroup}>
@@ -187,5 +196,6 @@ export default function FilterPanel({
         )}
       </div>
     </aside>
+    </>
   );
 }

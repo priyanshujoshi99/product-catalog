@@ -19,6 +19,18 @@
   gap: 0.5rem;
 }
 
+.closeBtn {
+  display: none;
+  margin-left: auto;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--text-muted);
+  padding: 0 0.25rem;
+  transition: color var(--transition);
+}
+
+.closeBtn:hover { color: var(--text-primary); }
+
 .filterCardIcon { font-size: 1.1rem; }
 
 .filterCardTitle {
@@ -167,6 +179,39 @@
 
 .savedItemDelete:hover { color: var(--red); }
 
+.overlay {
+  display: none;
+}
+
 @media (max-width: 860px) {
-  .filterCard { width: 100%; max-height: none; overflow: visible; }
+  .overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 100;
+  }
+
+  .filterCard {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100dvh;
+    width: min(320px, 90vw);
+    z-index: 101;
+    border-radius: 0 var(--radius-card) var(--radius-card) 0;
+    max-height: 100dvh;
+    overflow-y: auto;
+    transform: translateX(-110%);
+    transition: transform 0.28s ease;
+    box-shadow: 4px 0 24px rgba(0,0,0,.18);
+  }
+
+  .filterCardMobileOpen {
+    transform: translateX(0);
+  }
+
+  .closeBtn {
+    display: block;
+  }
 }
