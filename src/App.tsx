@@ -82,8 +82,8 @@ export default function App() {
                 <SortBar
                   sortBy={filters.sortBy}
                   onSortChange={(val) => updateFilter('sortBy', val)}
-                  filteredCount={filteredProducts.length}
-                  totalCount={products.length}
+                  filteredCount={visibleItems.length}
+                  totalCount={filteredProducts.length}
                 />
                 <ProductGrid
                   products={visibleItems}
