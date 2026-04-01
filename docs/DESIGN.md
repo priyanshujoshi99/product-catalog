@@ -6,6 +6,7 @@
 - **HTTP**: Axios
 - **Testing**: Vitest 4
 - **Styling**: CSS Modules + CSS custom properties (no CSS framework)
+- **Linting & Formatting**: ESLint 9 + Prettier 3
 
 ---
 
