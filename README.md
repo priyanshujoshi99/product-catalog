@@ -38,7 +38,7 @@ A responsive product catalog built with React and TypeScript. Browse 194 product
 
 ```bash
 # Install dependencies
-npm install
+npm ci
 
 # Start dev server (http://localhost:5173/product-catalog/)
 npm run dev
